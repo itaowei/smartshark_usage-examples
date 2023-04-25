@@ -16,13 +16,20 @@ For example, on Ubuntu 18.04 you can achieve all this as follows for release 2.1
 wget -O smartshark_2_1.agz http://141.5.100.155/smartshark_2_1.agz
 # download the following archive for the small version without code clones and code metrics, which only requires about 90 GB of free disk space
 # wget -O smartshark_2_1.agz http://141.5.100.155/smartshark_2_1_small.agz
-wget -qO - https://www.mongodb.org/static/pgp/server-4.0.asc | sudo apt-key add -
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+```
+
+```
+# Ref: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
+sudo apt-get install gnupg
+curl -fsSL https://pgp.mongodb.com/server-6.0.asc | \
+   sudo gpg -o /usr/share/keyrings/mongodb-server-6.0.gpg \
+   --dearmor
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
 sudo apt-get update
 sudo apt-get install -y mongodb-org
 sudo systemctl daemon-reload
 sudo systemctl start mongod
-mongorestore --gzip --archive=smartshark_1_0.agz
+mongorestore --gzip --archive=smartshark_1_2.agz
 ```
 
 ## Running the Notebook
